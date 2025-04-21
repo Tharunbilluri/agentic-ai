@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # ⚠️ Use self-hosted or Docker for Ollama
+    runs-on: ubuntu-latest  # ⚠️ Must be self-hosted or Docker for Ollama
 
     steps:
     - name: 📥 Checkout Repository
@@ -32,6 +32,8 @@ jobs:
     - name: 🧠 Install Ollama and Pull DeepSeek Model
       run: |
         curl -fsSL https://ollama.com/install.sh | sh
+        sudo systemctl start ollama
+        sudo systemctl enable ollama  # Ensure Ollama starts on boot
         ollama pull deepseek-r1:1.5b
 
     - name: 📦 Upload Ollama Model as Build Artifact (for future use)
